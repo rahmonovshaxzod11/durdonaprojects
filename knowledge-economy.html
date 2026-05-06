@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Economy — TSUE Methodological Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy2: #122040;
+    --gold: #c9a227;
+    --gold-light: #e8c44a;
+    --cream: #f5f0e8;
+    --cream2: #ede7d9;
+    --accent: #2563b0;
+    --accent2: #1e4f8c;
+    --text: #1a1a2e;
+    --text-muted: #5a6070;
+    --white: #ffffff;
+    --border: rgba(201,162,39,0.25);
+    --card-bg: rgba(255,255,255,0.92);
+    --shadow: 0 8px 40px rgba(10,22,40,0.13);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── LANGUAGE BAR ── */
+  .lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 52px;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+  .lang-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .lang-logo .icon {
+    width: 30px; height: 30px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .lang-logo span {
+    color: var(--cream);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .lang-switcher {
+    display: flex;
+    gap: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .lang-btn {
+    padding: 4px 16px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.55);
+    background: transparent;
+  }
+  .lang-btn.active {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .lang-btn:hover:not(.active) {
+    color: var(--white);
+    background: rgba(255,255,255,0.12);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    margin-top: 52px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1a2f5a 100%);
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 30%, rgba(201,162,39,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 80% 70%, rgba(37,99,176,0.12) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,162,39,0.15);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 2rem;
+    position: relative;
+    animation: fadeDown 0.7s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(30px)}  to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+
+  .hero-univ {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 1rem;
+    position: relative;
+    animation: fadeDown 0.7s 0.1s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.08;
+    max-width: 850px;
+    position: relative;
+    animation: fadeUp 0.8s 0.2s ease both;
+    margin-bottom: 1rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(245,240,232,0.65);
+    max-width: 560px;
+    line-height: 1.7;
+    position: relative;
+    animation: fadeUp 0.8s 0.35s ease both;
+    margin-bottom: 3rem;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .btn-gold {
+    padding: 14px 32px;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+  .btn-gold:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,162,39,0.4);
+  }
+  .btn-outline {
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--cream);
+    border: 1.5px solid rgba(245,240,232,0.3);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    position: relative;
+    animation: fadeIn 1s 0.8s ease both;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-stat .lbl {
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(245,240,232,0.15);
+    align-self: center;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 5rem 2rem;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-badge {
+    display: inline-block;
+    background: rgba(37,99,176,0.1);
+    border: 1px solid rgba(37,99,176,0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .section-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 620px;
+    margin-bottom: 3rem;
+  }
+  .gold-line {
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-section { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  @media(max-width:768px){ .about-grid{ grid-template-columns:1fr; gap:2rem; } }
+  .about-text p {
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .info-card {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .info-card .icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .info-card strong {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .info-card p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── CONTENTS ── */
+  .contents-section { background: var(--cream); }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .toc-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.8rem;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(201,162,39,0.1);
+    transition: all 0.28s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .toc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+  .toc-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(10,22,40,0.14); }
+  .toc-card:hover::before { transform: scaleX(1); }
+  .toc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .toc-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+  }
+  .toc-card p {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── METHODS ── */
+  .methods-section { background: var(--navy); }
+  .methods-section .section-badge { background: rgba(201,162,39,0.15); border-color: rgba(201,162,39,0.3); color: var(--gold-light); }
+  .methods-section .section-title { color: var(--white); }
+  .methods-section .section-desc { color: rgba(245,240,232,0.6); }
+  .methods-section .gold-line { background: var(--gold); }
+  .methods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+  .method-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,162,39,0.2);
+    border-radius: 14px;
+    padding: 1.8rem 1.5rem;
+    transition: all 0.25s;
+  }
+  .method-card:hover {
+    background: rgba(201,162,39,0.1);
+    border-color: rgba(201,162,39,0.4);
+    transform: translateY(-3px);
+  }
+  .method-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .method-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .method-card p {
+    font-size: 0.83rem;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── CASE STUDY ── */
+  .case-section { background: var(--cream2); }
+  .case-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 780px;
+  }
+  .case-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .step-num {
+    width: 56px; height: 56px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-body {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.4rem;
+    box-shadow: 0 3px 16px rgba(10,22,40,0.07);
+    border: 1px solid rgba(201,162,39,0.12);
+  }
+  .step-body h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .step-body p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── AUTHORS ── */
+  .authors-section { background: var(--white); }
+  .authors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .author-card {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 1.8rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    border: 1px solid rgba(201,162,39,0.12);
+    transition: box-shadow 0.25s;
+  }
+  .author-card:hover { box-shadow: var(--shadow); }
+  .author-avatar {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--navy), var(--accent));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .author-info strong {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .author-info .role {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .author-info .tag {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tag-author { background: rgba(201,162,39,0.15); color: var(--gold); }
+  .tag-reviewer { background: rgba(37,99,176,0.1); color: var(--accent); }
+
+  /* ── KNOWLEDGE ECONOMY ── */
+  .ke-section { background: linear-gradient(135deg, #0a1628 0%, #1a2f5a 100%); }
+  .ke-section .section-badge { background: rgba(201,162,39,0.15); border-color: rgba(201,162,39,0.3); color: var(--gold-light); }
+  .ke-section .section-title { color: var(--white); }
+  .ke-section .section-desc { color: rgba(245,240,232,0.6); }
+  .ke-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+  .ke-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 1.6rem 1.4rem;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .ke-card:hover {
+    background: rgba(201,162,39,0.1);
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .ke-card .big { font-size: 2.4rem; margin-bottom: 0.8rem; }
+  .ke-card h4 { font-family:'Playfair Display',serif; color:var(--white); font-size:0.95rem; margin-bottom:0.4rem; }
+  .ke-card p { font-size:0.8rem; color:rgba(245,240,232,0.5); line-height:1.5; }
+
+  /* ── PROJECT METHOD ── */
+  .project-section { background: var(--cream); }
+  .project-quote {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-quote::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: rgba(201,162,39,0.12);
+    line-height: 1;
+  }
+  .project-quote p {
+    color: rgba(245,240,232,0.85);
+    font-size: 0.97rem;
+    line-height: 1.8;
+    position: relative;
+    font-style: italic;
+    max-width: 720px;
+  }
+  .project-quote .attr {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .benefit-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.2rem;
+    border: 1px solid rgba(201,162,39,0.1);
+  }
+  .benefit-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .benefit-item p { font-size:0.87rem; color:var(--text-muted); line-height:1.55; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    border-top: 2px solid var(--gold);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  footer .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  footer p {
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.4);
+    line-height: 1.6;
+  }
+  footer a {
+    color: rgba(201,162,39,0.7);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--gold); }
+
+  /* ── NAV ── */
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+  .nav-links a {
+    color: rgba(245,240,232,0.55);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .nav-links a:hover { color: var(--gold); background: rgba(201,162,39,0.1); }
+  @media(max-width:700px){ .nav-links { display:none; } }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── FLOATING DOWNLOAD ── */
+  .float-download {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 40px;
+    box-shadow: 0 8px 28px rgba(201,162,39,0.5);
+    cursor: pointer;
+    transition: all 0.25s;
+    border: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.03em;
+  }
+  .float-download:hover {
+    background: var(--gold-light);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(201,162,39,0.55);
+  }
+
+  /* ── READING PROGRESS ── */
+  .progress-bar {
+    position: fixed;
+    top: 52px; left: 0;
+    height: 2px;
+    background: var(--gold);
+    z-index: 999;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(37,99,176,0.08), rgba(201,162,39,0.08));
+    border: 1px solid rgba(201,162,39,0.2);
+    border-radius: 14px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  .highlight-box h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .highlight-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- READING PROGRESS -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- LANGUAGE BAR -->
+<header class="lang-bar">
+  <a class="lang-logo" href="#">
+    <div class="icon">📘</div>
+    <span data-i18n="site_short">TSUE · Knowledge Economy</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#about" data-i18n="nav_about">About</a>
+    <a href="#contents" data-i18n="nav_contents">Contents</a>
+    <a href="#methods" data-i18n="nav_methods">Methods</a>
+    <a href="#authors" data-i18n="nav_authors">Authors</a>
+    <a href="#economy" data-i18n="nav_economy">Knowledge Economy</a>
+  </nav>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lang-btn" onclick="setLang('uz')" id="btn-uz">UZ</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-tag" data-i18n="hero_tag">Methodological Guide · TSUE 2025</div>
+  <p class="hero-univ" data-i18n="hero_univ">Ministry of Higher Education, Science & Innovations · Republic of Uzbekistan</p>
+  <h1 data-i18n="hero_h1">Knowledge<br><em>Economy</em></h1>
+  <p class="hero-sub" data-i18n="hero_sub">A comprehensive methodological guide for organizing practical training and independent learning in the subject of Knowledge Economy at Tashkent State University of Economics.</p>
+  <div class="hero-cta">
+    <a href="#about" class="btn-gold" data-i18n="hero_explore">Explore Guide</a>
+    <a href="#contents" class="btn-outline" data-i18n="hero_contents">View Contents</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">5</span>
+      <span class="lbl" data-i18n="stat_chapters">Chapters</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="num">131</span>
+      <span class="lbl" data-i18n="stat_tests">Test Questions</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="num">2025</span>
+      <span class="lbl" data-i18n="stat_year">Published</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="num">34</span>
+      <span class="lbl" data-i18n="stat_pages">Pages</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <span class="section-badge" data-i18n="badge_about">About the Guide</span>
+        <span class="gold-line"></span>
+        <h2 class="section-title" data-i18n="about_title">Building the Future Through Knowledge</h2>
+        <p data-i18n="about_p1">This methodological guide provides a comprehensive introduction to digital pedagogy, covering the purpose, types, and organizational frameworks for the pedagogical process in the field of Knowledge Economy.</p>
+        <p data-i18n="about_p2">It contains assignments, tests, case studies, problems, and exercises for each section. Each part is designed to organize practical and independent learning in the field of digital economics.</p>
+        <p data-i18n="about_p3">Intended for professors, teachers, trainers, and students enrolled in all master's degree programs at the Tashkent State University of Economics.</p>
+        <div class="highlight-box">
+          <h4 data-i18n="about_quote_h">Target Programs</h4>
+          <p data-i18n="about_quote_p">60112400 — Professional Education (Economics · Management) · 60310100 · 60411200</p>
+        </div>
+      </div>
+      <div class="info-cards">
+        <div class="info-card">
+          <span class="icon">🎓</span>
+          <div>
+            <strong data-i18n="ic_institution">Institution</strong>
+            <p data-i18n="ic_institution_v">Tashkent State University of Economics (TSUE)</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="icon">📅</span>
+          <div>
+            <strong data-i18n="ic_year">Year</strong>
+            <p data-i18n="ic_year_v">Tashkent, 2025</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="icon">📋</span>
+          <div>
+            <strong data-i18n="ic_council">Approval</strong>
+            <p data-i18n="ic_council_v">Approved by the Educational and Methodological Council of TSUE. Discussed by the Department of Economic Theory.</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="icon">🌐</span>
+          <div>
+            <strong data-i18n="ic_lang">Language</strong>
+            <p data-i18n="ic_lang_v">English / Uzbek (bilingual resource)</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="icon">👨‍💼</span>
+          <div>
+            <strong data-i18n="ic_dept">Department Head</strong>
+            <p>Kh. Asatullayev</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TABLE OF CONTENTS -->
+<section class="section contents-section" id="contents">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge" data-i18n="badge_toc">Table of Contents</span>
+      <span class="gold-line"></span>
+      <h2 class="section-title" data-i18n="toc_title">What's Inside</h2>
+      <p class="section-desc" data-i18n="toc_desc">Each chapter is carefully structured to build progressive understanding of knowledge economy principles and pedagogical methodologies.</p>
+    </div>
+    <div class="toc-grid reveal">
+      <div class="toc-card">
+        <span class="toc-num">CHAPTER 01 · P. 6</span>
+        <h3 data-i18n="toc1_h">Methods for Developing Students' Organizational Skills</h3>
+        <p data-i18n="toc1_p">Explores how independent learning fosters organizational skills, with emphasis on project education technology and its didactic essence.</p>
+      </div>
+      <div class="toc-card">
+        <span class="toc-num">CHAPTER 02 · P. 11</span>
+        <h3 data-i18n="toc2_h">Methodology for Organizing an Educational Project</h3>
+        <p data-i18n="toc2_p">Practical framework for designing and implementing educational projects on the topic "Education and Upbringing in Islam" with 6-person team structures.</p>
+      </div>
+      <div class="toc-card">
+        <span class="toc-num">CHAPTER 03 · P. 14</span>
+        <h3 data-i18n="toc3_h">The Case Study Method</h3>
+        <p data-i18n="toc3_p">Deep dive into the Case Study method and its pivotal role in developing students' analytical, decision-making, and organizational competencies.</p>
+      </div>
+      <div class="toc-card">
+        <span class="toc-num">CHAPTER 04 · P. 22</span>
+        <h3 data-i18n="toc4_h">Case Study Examples in Independent Learning</h3>
+        <p data-i18n="toc4_p">Concrete examples of Case Study methods applied to real-world knowledge economy topics including hikikomori, digitalization, and skills gap challenges.</p>
+      </div>
+      <div class="toc-card">
+        <span class="toc-num">REFERENCES · P. 38</span>
+        <h3 data-i18n="toc5_h">List of Used Literature</h3>
+        <p data-i18n="toc5_p">Comprehensive bibliography including presidential decrees, academic research, and pedagogical frameworks from leading Uzbek and international scholars.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODS -->
+<section class="section methods-section" id="methods">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge" data-i18n="badge_methods">Teaching Methods</span>
+      <span class="gold-line"></span>
+      <h2 class="section-title" data-i18n="methods_title">Pedagogical Approaches</h2>
+      <p class="section-desc" data-i18n="methods_desc">The guide presents several interconnected teaching methodologies designed to foster independent critical thinking and practical skill development.</p>
+    </div>
+    <div class="methods-grid reveal">
+      <div class="method-card">
+        <div class="method-icon">🗂️</div>
+        <h3 data-i18n="m1_h">Project Method</h3>
+        <p data-i18n="m1_p">A practical goal-oriented approach where students design, plan, and execute projects that guarantee pedagogical effectiveness through real-world application.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">📊</div>
+        <h3 data-i18n="m2_h">Case Study</h3>
+        <p data-i18n="m2_p">Analytical deep-dives into real situations that develop problem-solving, critical thinking, and collaborative decision-making capabilities.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">💡</div>
+        <h3 data-i18n="m3_h">Independent Learning</h3>
+        <p data-i18n="m3_p">Structured self-study frameworks that develop autonomy, initiative, and creative thinking — the foundation of lifelong professional growth.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🖥️</div>
+        <h3 data-i18n="m4_h">Digital Pedagogy</h3>
+        <p data-i18n="m4_p">Integration of information technologies and digital tools in educational processes to enhance accessibility, engagement and innovation.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🔄</div>
+        <h3 data-i18n="m5_h">Reflective Practice</h3>
+        <p data-i18n="m5_p">Students regularly discuss research experiences with teachers in groups and individually, embedding reflection as an integral part of education.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🤝</div>
+        <h3 data-i18n="m6_h">Collaborative Learning</h3>
+        <p data-i18n="m6_p">Team-based project structures (6 persons) that build communication, leadership, and collective problem-solving skills essential for knowledge economy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY FLOW -->
+<section class="section case-section" id="casestudy">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge" data-i18n="badge_case">Case Study Framework</span>
+      <span class="gold-line"></span>
+      <h2 class="section-title" data-i18n="case_title">How Case Studies Work</h2>
+      <p class="section-desc" data-i18n="case_desc">The Case Study methodology follows a structured process that transforms real-world complexity into rich learning experiences.</p>
+    </div>
+    <div class="case-flow reveal">
+      <div class="case-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h4 data-i18n="cs1_h">Problem Identification</h4>
+          <p data-i18n="cs1_p">Define the problem being addressed. Clearly articulate why the case exists, what challenge it represents, and what knowledge gap it fills.</p>
+        </div>
+      </div>
+      <div class="case-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h4 data-i18n="cs2_h">Purpose & Goal Setting</h4>
+          <p data-i18n="cs2_p">Establish the learning objectives and expected outcomes of the project. Define who the users are and what deliverable will be created.</p>
+        </div>
+      </div>
+      <div class="case-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h4 data-i18n="cs3_h">Project Structure & Planning</h4>
+          <p data-i18n="cs3_p">Develop the project structure, assign roles among team members, plan timeline (typically 20 days), and allocate resources and responsibilities.</p>
+        </div>
+      </div>
+      <div class="case-step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h4 data-i18n="cs4_h">Research & Content Development</h4>
+          <p data-i18n="cs4_p">Gather information, analyze the topic deeply, conduct research using available databases, academic literature, and practical observation.</p>
+        </div>
+      </div>
+      <div class="case-step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h4 data-i18n="cs5_h">Presentation & Final Product</h4>
+          <p data-i18n="cs5_p">Create the final deliverable (video, report, presentation) and present findings in group and individual reflection sessions with the teacher/mentor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KNOWLEDGE ECONOMY -->
+<section class="section ke-section" id="economy">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge" data-i18n="badge_ke">Knowledge Economy</span>
+      <span class="gold-line"></span>
+      <h2 class="section-title" data-i18n="ke_title">Key Concepts</h2>
+      <p class="section-desc" data-i18n="ke_desc">Core pillars of the Knowledge Economy as explored through the guide's test questions and case studies — where ideas, skills, and technology drive growth.</p>
+    </div>
+    <div class="ke-grid reveal">
+      <div class="ke-card">
+        <div class="big">💡</div>
+        <h4 data-i18n="ke1_h">Innovation</h4>
+        <p data-i18n="ke1_p">The primary driver of knowledge economy growth, replacing physical labor with creative thinking and technological advancement.</p>
+      </div>
+      <div class="ke-card">
+        <div class="big">🎓</div>
+        <h4 data-i18n="ke2_h">Education</h4>
+        <p data-i18n="ke2_p">Investment in human capital through quality education generates skills, research capacity, and economic opportunity.</p>
+      </div>
+      <div class="ke-card">
+        <div class="big">💻</div>
+        <h4 data-i18n="ke3_h">Digitalization</h4>
+        <p data-i18n="ke3_p">Digital transformation accelerates knowledge work, enabling faster collaboration, access to information, and high-tech employment.</p>
+      </div>
+      <div class="ke-card">
+        <div class="big">🔬</div>
+        <h4 data-i18n="ke4_h">Research & Tech</h4>
+        <p data-i18n="ke4_p">Technology and finance industries form the backbone of knowledge economy sectors replacing traditional manufacturing.</p>
+      </div>
+      <div class="ke-card">
+        <div class="big">⚖️</div>
+        <h4 data-i18n="ke5_h">Skills Gap</h4>
+        <p data-i18n="ke5_p">The knowledge economy faces inequality and automation challenges, making continuous upskilling and inclusion essential.</p>
+      </div>
+      <div class="ke-card">
+        <div class="big">🌐</div>
+        <h4 data-i18n="ke6_h">Remote Work</h4>
+        <p data-i18n="ke6_p">Knowledge economy enables flexible, remote, technology-enabled employment expanding participation across society.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT METHOD -->
+<section class="section project-section" id="project">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge" data-i18n="badge_project">Project Education</span>
+      <span class="gold-line"></span>
+      <h2 class="section-title" data-i18n="proj_title">The Power of the Project Method</h2>
+    </div>
+    <div class="project-quote reveal">
+      <p data-i18n="proj_quote">For this purpose, We will implement large-scale reforms based on the idea that "New Uzbekistan begins at the school threshold, with the education system." We will establish quality education for the younger generation in kindergartens, schools, and higher education institutions, and we will mobilize all our efforts and resources so that they grow up to be physically and spiritually healthy, patriotic people.</p>
+      <div class="attr" data-i18n="proj_attr">— Sh. Mirziyoyev, President of the Republic of Uzbekistan</div>
+    </div>
+    <div class="reveal">
+      <h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:1.5rem;font-size:1.2rem;" data-i18n="proj_benefits_h">Benefits of the Project Method in Independent Learning</h3>
+      <div class="benefits-grid">
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b1">Develops creative qualities and initiative in students</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b2">Prepares students for independent professional life</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b3">Develops skills for independently searching and reading scientific literature</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b4">Builds ability to present analytical information visually</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b5">Fosters teamwork, problem analysis, and unconventional solutions</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b6">Strengthens decision-making and situational assessment skills</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b7">An important form of preparing students for work and career</p></div>
+        <div class="benefit-item"><div class="benefit-dot"></div><p data-i18n="b8">Builds written and oral information search and presentation abilities</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHORS -->
+<section class="section authors-section" id="authors">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge" data-i18n="badge_authors">Authors & Reviewers</span>
+      <span class="gold-line"></span>
+      <h2 class="section-title" data-i18n="authors_title">The Scholars Behind the Guide</h2>
+      <p class="section-desc" data-i18n="authors_desc">Compiled and reviewed by leading academics at the Tashkent State University of Economics and affiliated institutions.</p>
+    </div>
+    <div class="authors-grid reveal">
+      <div class="author-card">
+        <div class="author-avatar">MK</div>
+        <div class="author-info">
+          <strong>M.Sh. Kayumova</strong>
+          <div class="role" data-i18n="au1">Acting Associate Professor, Department of Economic Theory, TSUE</div>
+          <span class="tag tag-author" data-i18n="tag_author">Author</span>
+        </div>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar">IK</div>
+        <div class="author-info">
+          <strong>I.A. Khojieva</strong>
+          <div class="role" data-i18n="au2">Senior Lecturer, PhD, Department of Economic Theory, TSUE</div>
+          <span class="tag tag-author" data-i18n="tag_author">Author</span>
+        </div>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar">DH</div>
+        <div class="author-info">
+          <strong>D.O. Himmataliyev</strong>
+          <div class="role" data-i18n="au3">PhD, Professor, Department of General Pedagogy, ChDPU</div>
+          <span class="tag tag-reviewer" data-i18n="tag_reviewer">Reviewer</span>
+        </div>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar">AR</div>
+        <div class="author-info">
+          <strong>A. Rasulev</strong>
+          <div class="role" data-i18n="au4">Doctor of Sciences (Ds), Professor, Department of Economic Theory, TSUE</div>
+          <span class="tag tag-reviewer" data-i18n="tag_reviewer">Reviewer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" data-i18n="footer_logo">Knowledge Economy · TSUE 2025</div>
+  <p style="margin-top:0.4rem;" data-i18n="footer_sub">Tashkent State University of Economics · Department of Economic Theory</p>
+  <p style="margin-top:1rem;" data-i18n="footer_links">
+    Resources: 
+    <a href="http://www.pedagog.uz" target="_blank">pedagog.uz</a> · 
+    <a href="http://www.bilimdon.uz" target="_blank">bilimdon.uz</a> · 
+    <a href="http://www.edunet.uz" target="_blank">edunet.uz</a> · 
+    <a href="http://lex.uz" target="_blank">lex.uz</a>
+  </p>
+  <p style="margin-top:1.5rem;font-size:0.72rem;opacity:0.3;" data-i18n="footer_copy">© 2025 TSUE · Methodological Guide on Knowledge Economy</p>
+</footer>
+
+<!-- FLOATING DOWNLOAD -->
+<a class="float-download" href="#" onclick="window.print();return false;">
+  📄 <span data-i18n="float_btn">Print / Save PDF</span>
+</a>
+
+<script>
+// ── TRANSLATIONS ──
+const i18n = {
+  en: {
+    site_short: "TSUE · Knowledge Economy",
+    nav_about: "About",
+    nav_contents: "Contents",
+    nav_methods: "Methods",
+    nav_authors: "Authors",
+    nav_economy: "Knowledge Economy",
+    hero_tag: "Methodological Guide · TSUE 2025",
+    hero_univ: "Ministry of Higher Education, Science & Innovations · Republic of Uzbekistan",
+    hero_h1: "Knowledge<br><em>Economy</em>",
+    hero_sub: "A comprehensive methodological guide for organizing practical training and independent learning in the subject of Knowledge Economy at Tashkent State University of Economics.",
+    hero_explore: "Explore Guide",
+    hero_contents: "View Contents",
+    stat_chapters: "Chapters",
+    stat_tests: "Test Questions",
+    stat_year: "Published",
+    stat_pages: "Pages",
+    badge_about: "About the Guide",
+    about_title: "Building the Future Through Knowledge",
+    about_p1: "This methodological guide provides a comprehensive introduction to digital pedagogy, covering the purpose, types, and organizational frameworks for the pedagogical process in the field of Knowledge Economy.",
+    about_p2: "It contains assignments, tests, case studies, problems, and exercises for each section. Each part is designed to organize practical and independent learning in the field of digital economics.",
+    about_p3: "Intended for professors, teachers, trainers, and students enrolled in all master's degree programs at the Tashkent State University of Economics.",
+    about_quote_h: "Target Programs",
+    about_quote_p: "60112400 — Professional Education (Economics · Management) · 60310100 · 60411200",
+    ic_institution: "Institution",
+    ic_institution_v: "Tashkent State University of Economics (TSUE)",
+    ic_year: "Year",
+    ic_year_v: "Tashkent, 2025",
+    ic_council: "Approval",
+    ic_council_v: "Approved by the Educational and Methodological Council of TSUE. Discussed by the Department of Economic Theory.",
+    ic_lang: "Language",
+    ic_lang_v: "English / Uzbek (bilingual resource)",
+    ic_dept: "Department Head",
+    badge_toc: "Table of Contents",
+    toc_title: "What's Inside",
+    toc_desc: "Each chapter is carefully structured to build progressive understanding of knowledge economy principles and pedagogical methodologies.",
+    toc1_h: "Methods for Developing Students' Organizational Skills",
+    toc1_p: "Explores how independent learning fosters organizational skills, with emphasis on project education technology and its didactic essence.",
+    toc2_h: "Methodology for Organizing an Educational Project",
+    toc2_p: "Practical framework for designing and implementing educational projects on the topic \"Education and Upbringing in Islam\" with 6-person team structures.",
+    toc3_h: "The Case Study Method",
+    toc3_p: "Deep dive into the Case Study method and its pivotal role in developing students' analytical, decision-making, and organizational competencies.",
+    toc4_h: "Case Study Examples in Independent Learning",
+    toc4_p: "Concrete examples of Case Study methods applied to real-world knowledge economy topics including hikikomori, digitalization, and skills gap challenges.",
+    toc5_h: "List of Used Literature",
+    toc5_p: "Comprehensive bibliography including presidential decrees, academic research, and pedagogical frameworks from leading Uzbek and international scholars.",
+    badge_methods: "Teaching Methods",
+    methods_title: "Pedagogical Approaches",
+    methods_desc: "The guide presents several interconnected teaching methodologies designed to foster independent critical thinking and practical skill development.",
+    m1_h: "Project Method",
+    m1_p: "A practical goal-oriented approach where students design, plan, and execute projects that guarantee pedagogical effectiveness through real-world application.",
+    m2_h: "Case Study",
+    m2_p: "Analytical deep-dives into real situations that develop problem-solving, critical thinking, and collaborative decision-making capabilities.",
+    m3_h: "Independent Learning",
+    m3_p: "Structured self-study frameworks that develop autonomy, initiative, and creative thinking — the foundation of lifelong professional growth.",
+    m4_h: "Digital Pedagogy",
+    m4_p: "Integration of information technologies and digital tools in educational processes to enhance accessibility, engagement and innovation.",
+    m5_h: "Reflective Practice",
+    m5_p: "Students regularly discuss research experiences with teachers in groups and individually, embedding reflection as an integral part of education.",
+    m6_h: "Collaborative Learning",
+    m6_p: "Team-based project structures (6 persons) that build communication, leadership, and collective problem-solving skills essential for knowledge economy.",
+    badge_case: "Case Study Framework",
+    case_title: "How Case Studies Work",
+    case_desc: "The Case Study methodology follows a structured process that transforms real-world complexity into rich learning experiences.",
+    cs1_h: "Problem Identification",
+    cs1_p: "Define the problem being addressed. Clearly articulate why the case exists, what challenge it represents, and what knowledge gap it fills.",
+    cs2_h: "Purpose & Goal Setting",
+    cs2_p: "Establish the learning objectives and expected outcomes of the project. Define who the users are and what deliverable will be created.",
+    cs3_h: "Project Structure & Planning",
+    cs3_p: "Develop the project structure, assign roles among team members, plan timeline (typically 20 days), and allocate resources and responsibilities.",
+    cs4_h: "Research & Content Development",
+    cs4_p: "Gather information, analyze the topic deeply, conduct research using available databases, academic literature, and practical observation.",
+    cs5_h: "Presentation & Final Product",
+    cs5_p: "Create the final deliverable (video, report, presentation) and present findings in group and individual reflection sessions with the teacher/mentor.",
+    badge_ke: "Knowledge Economy",
+    ke_title: "Key Concepts",
+    ke_desc: "Core pillars of the Knowledge Economy as explored through the guide's test questions and case studies — where ideas, skills, and technology drive growth.",
+    ke1_h: "Innovation",
+    ke1_p: "The primary driver of knowledge economy growth, replacing physical labor with creative thinking and technological advancement.",
+    ke2_h: "Education",
+    ke2_p: "Investment in human capital through quality education generates skills, research capacity, and economic opportunity.",
+    ke3_h: "Digitalization",
+    ke3_p: "Digital transformation accelerates knowledge work, enabling faster collaboration, access to information, and high-tech employment.",
+    ke4_h: "Research & Tech",
+    ke4_p: "Technology and finance industries form the backbone of knowledge economy sectors replacing traditional manufacturing.",
+    ke5_h: "Skills Gap",
+    ke5_p: "The knowledge economy faces inequality and automation challenges, making continuous upskilling and inclusion essential.",
+    ke6_h: "Remote Work",
+    ke6_p: "Knowledge economy enables flexible, remote, technology-enabled employment expanding participation across society.",
+    badge_project: "Project Education",
+    proj_title: "The Power of the Project Method",
+    proj_quote: "For this purpose, We will implement large-scale reforms based on the idea that \"New Uzbekistan begins at the school threshold, with the education system.\" We will establish quality education for the younger generation and mobilize all our efforts so that they grow up to be physically and spiritually healthy, patriotic people.",
+    proj_attr: "— Sh. Mirziyoyev, President of the Republic of Uzbekistan",
+    proj_benefits_h: "Benefits of the Project Method in Independent Learning",
+    b1: "Develops creative qualities and initiative in students",
+    b2: "Prepares students for independent professional life",
+    b3: "Develops skills for independently searching and reading scientific literature",
+    b4: "Builds ability to present analytical information visually",
+    b5: "Fosters teamwork, problem analysis, and unconventional solutions",
+    b6: "Strengthens decision-making and situational assessment skills",
+    b7: "An important form of preparing students for work and career",
+    b8: "Builds written and oral information search and presentation abilities",
+    badge_authors: "Authors & Reviewers",
+    authors_title: "The Scholars Behind the Guide",
+    authors_desc: "Compiled and reviewed by leading academics at the Tashkent State University of Economics and affiliated institutions.",
+    au1: "Acting Associate Professor, Department of Economic Theory, TSUE",
+    au2: "Senior Lecturer, PhD, Department of Economic Theory, TSUE",
+    au3: "PhD, Professor, Department of General Pedagogy, ChDPU",
+    au4: "Doctor of Sciences (Ds), Professor, Department of Economic Theory, TSUE",
+    tag_author: "Author",
+    tag_reviewer: "Reviewer",
+    footer_logo: "Knowledge Economy · TSUE 2025",
+    footer_sub: "Tashkent State University of Economics · Department of Economic Theory",
+    footer_links: 'Resources: <a href="http://www.pedagog.uz" target="_blank">pedagog.uz</a> · <a href="http://www.bilimdon.uz" target="_blank">bilimdon.uz</a> · <a href="http://www.edunet.uz" target="_blank">edunet.uz</a> · <a href="http://lex.uz" target="_blank">lex.uz</a>',
+    footer_copy: "© 2025 TSUE · Methodological Guide on Knowledge Economy",
+    float_btn: "Print / Save PDF"
+  },
+  uz: {
+    site_short: "TDIU · Bilim Iqtisodiyoti",
+    nav_about: "Haqida",
+    nav_contents: "Mundarija",
+    nav_methods: "Metodlar",
+    nav_authors: "Mualliflar",
+    nav_economy: "Bilim Iqtisodiyoti",
+    hero_tag: "Uslubiy Qo'llanma · TDIU 2025",
+    hero_univ: "O'zbekiston Respublikasi Oliy Ta'lim, Fan va Innovatsiyalar Vazirligi",
+    hero_h1: "Bilim<br><em>Iqtisodiyoti</em>",
+    hero_sub: "Toshkent Davlat Iqtisodiyot Universitetida «Bilim Iqtisodiyoti» fanidan amaliy mashg'ulotlar va mustaqil ta'limni tashkil etishga mo'ljallangan keng qamrovli uslubiy qo'llanma.",
+    hero_explore: "Qo'llanmani Ko'rish",
+    hero_contents: "Mundarija",
+    stat_chapters: "Bob",
+    stat_tests: "Test Savollari",
+    stat_year: "Nashr Yili",
+    stat_pages: "Sahifa",
+    badge_about: "Qo'llanma Haqida",
+    about_title: "Bilim Orqali Kelajakni Qurish",
+    about_p1: "Ushbu uslubiy qo'llanma raqamli pedagogika bo'yicha keng qamrovli kirish, maqsad, turlari va Bilim Iqtisodiyoti sohasidagi pedagogik jarayonni tashkil etish tizimlarini o'z ichiga oladi.",
+    about_p2: "Har bir bo'lim uchun topshiriqlar, testlar, keys-studylar, muammolar va mashqlar mavjud. Har bir qism raqamli iqtisodiyot sohasida amaliy va mustaqil ta'limni tashkil etish uchun mo'ljallangan.",
+    about_p3: "TDIU barcha magistratura dasturlariga o'qishga qabul qilingan professor-o'qituvchilar, murabbiylar va talabalar uchun mo'ljallangan.",
+    about_quote_h: "Maqsadli Dasturlar",
+    about_quote_p: "60112400 — Kasbiy ta'lim (Iqtisodiyot · Menejment) · 60310100 · 60411200",
+    ic_institution: "Muassasa",
+    ic_institution_v: "Toshkent Davlat Iqtisodiyot Universiteti (TDIU)",
+    ic_year: "Yil",
+    ic_year_v: "Toshkent, 2025",
+    ic_council: "Tasdiqlash",
+    ic_council_v: "TDIU Ta'lim-Uslubiy Kengashi tomonidan tasdiqlangan. Iqtisodiy nazariya kafedrasi yig'ilishida muhokama qilingan.",
+    ic_lang: "Til",
+    ic_lang_v: "Ingliz / O'zbek (ikki tilli manba)",
+    ic_dept: "Kafedra Mudiri",
+    badge_toc: "Mundarija",
+    toc_title: "Ichida Nima Bor",
+    toc_desc: "Har bir bob bilim iqtisodiyoti tamoyillari va pedagogik metodologiyalarni bosqichma-bosqich tushunish uchun diqqat bilan tuzilgan.",
+    toc1_h: "Talabalarning Tashkiliy Ko'nikmalarini Rivojlantirish Usullari",
+    toc1_p: "Mustaqil ta'lim tashkiliy ko'nikmalarni qanday shakllantirishini, loyiha ta'lim texnologiyasi va uning didaktik mohiyatini o'rganadi.",
+    toc2_h: "Ta'lim Loyihasini Tashkil Etish Metodikasi",
+    toc2_p: "6 kishilik jamoa tuzilmasi bilan \"Islomda ta'lim va tarbiya\" mavzusidagi ta'lim loyihalarini ishlab chiqish va amalga oshirish uchun amaliy doira.",
+    toc3_h: "Keys-studi Metodi",
+    toc3_p: "Keys-studi metodi va uning talabalarning analitik, qaror qabul qilish va tashkiliy kompetentsiyalarini rivojlantirishdagi hal qiluvchi roli.",
+    toc4_h: "Mustaqil Ta'limdagi Keys-studi Misollari",
+    toc4_p: "Xikikomori, raqamlashuv va ko'nikmalar tafovuti kabi haqiqiy bilim iqtisodiyoti mavzulariga qo'llaniladigan keys-studi metodlarining aniq misollari.",
+    toc5_h: "Foydalanilgan Adabiyotlar Ro'yxati",
+    toc5_p: "Prezident farmonlari, ilmiy tadqiqotlar va yetakchi o'zbek hamda xalqaro olimlarning pedagogik kontseptsiyalarini o'z ichiga olgan keng bibliografiya.",
+    badge_methods: "O'qitish Metodlari",
+    methods_title: "Pedagogik Yondashuvlar",
+    methods_desc: "Qo'llanma mustaqil tanqidiy fikrlash va amaliy ko'nikmalarni rivojlantirishga mo'ljallangan bir nechta o'zaro bog'liq o'qitish metodologiyalarini taqdim etadi.",
+    m1_h: "Loyiha Metodi",
+    m1_p: "Talabalar haqiqiy dunyo tatbiqi orqali pedagogik samaradorlikni kafolatlaydigan loyihalarni ishlab chiqadigan, rejalashtiradigan va amalga oshiradigan amaliy maqsadga yo'naltirilgan yondashuv.",
+    m2_h: "Keys-studi",
+    m2_p: "Muammolarni hal qilish, tanqidiy fikrlash va hamkorlikda qaror qabul qilish qobiliyatlarini rivojlantiruvchi haqiqiy vaziyatlarni chuqur tahlil qilish.",
+    m3_h: "Mustaqil Ta'lim",
+    m3_p: "Mustaqillik, tashabbus va ijodiy fikrlashni rivojlantiruvchi tizimli o'z-o'zini o'qitish doiralari — umrbod kasbiy o'sishning asosi.",
+    m4_h: "Raqamli Pedagogika",
+    m4_p: "Ta'lim jarayonlarida axborot texnologiyalari va raqamli vositalarni integratsiya qilib, qulaylik, qiziqish va innovatsiyani oshirish.",
+    m5_h: "Refleksiv Amaliyot",
+    m5_p: "Talabalar muntazam ravishda guruh va individual refleksiya sessiyalarida o'qituvchilar bilan tadqiqot tajribalarini muhokama qiladilar.",
+    m6_h: "Hamkorlikda Ta'lim",
+    m6_p: "Bilim iqtisodiyoti uchun zarur bo'lgan muloqot, rahbarlik va jamoa muammolarini hal qilish ko'nikmalarini rivojlantiruvchi jamoa loyiha tuzilmalari (6 kishi).",
+    badge_case: "Keys-studi Doirasi",
+    case_title: "Keys-studi Qanday Ishlaydi",
+    case_desc: "Keys-studi metodologiyasi haqiqiy murakkablikni boy ta'lim tajribalariga aylantiruvchi tizimli jarayonni kuzatadi.",
+    cs1_h: "Muammoni Aniqlash",
+    cs1_p: "Hal etilayotgan muammoni belgilang. Keys nima uchun mavjudligini, u qanday muammoni ifodalashini va qanday bilim bo'shliqlarini to'ldirishini aniq bayon qiling.",
+    cs2_h: "Maqsad va Vazifalarni Belgilash",
+    cs2_p: "Loyihaning ta'lim maqsadlari va kutilayotgan natijalarini belgilang. Foydalanuvchilar kim va qanday natija yaratilishini aniqlang.",
+    cs3_h: "Loyiha Tuzilmasi va Rejalashtirish",
+    cs3_p: "Loyiha tuzilmasini ishlab chiqing, jamoa a'zolari o'rtasida rollarni taqsimlang, muddatni rejalang (odatda 20 kun) va resurslarni ajrating.",
+    cs4_h: "Tadqiqot va Kontent Ishlab Chiqish",
+    cs4_p: "Ma'lumot to'plang, mavzuni chuqur tahlil qiling, mavjud ma'lumotlar bazalari, ilmiy adabiyotlar va amaliy kuzatishdan foydalaning.",
+    cs5_h: "Taqdimot va Yakuniy Mahsulot",
+    cs5_p: "Yakuniy natija (video, hisobot, taqdimot) yarating va topilmalarni guruh va individual refleksiya sessiyalarida o'qituvchi bilan taqdim eting.",
+    badge_ke: "Bilim Iqtisodiyoti",
+    ke_title: "Asosiy Tushunchalar",
+    ke_desc: "Qo'llanmaning test savollari va keys-studylari orqali o'rganilgan bilim iqtisodiyotining asosiy ustunlari — g'oyalar, ko'nikmalar va texnologiyalar o'sishni ta'minlaydigan joy.",
+    ke1_h: "Innovatsiya",
+    ke1_p: "Jismoniy mehnatni ijodiy fikrlash va texnologik taraqqiyot bilan almashtirib, bilim iqtisodiyoti o'sishining asosiy harakatlantiruvchisi.",
+    ke2_h: "Ta'lim",
+    ke2_p: "Sifatli ta'lim orqali inson kapitaliga investitsiya ko'nikmalar, tadqiqot quvvati va iqtisodiy imkoniyatlarni yaratadi.",
+    ke3_h: "Raqamlashtirish",
+    ke3_p: "Raqamli transformatsiya bilim ishini tezlashtiradi, tezroq hamkorlik, ma'lumotlarga kirish va yuqori texnologiyali ish o'rinlarini ta'minlaydi.",
+    ke4_h: "Tadqiqot va Texnologiya",
+    ke4_p: "Texnologiya va moliya sanoatlari an'anaviy ishlab chiqarishni almashtiruvchi bilim iqtisodiyoti sektorlarining asosini tashkil qiladi.",
+    ke5_h: "Ko'nikmalar Tafovuti",
+    ke5_p: "Bilim iqtisodiyoti tengsizlik va avtomatlashtirish muammolari bilan kurashadi, bu esa doimiy malaka oshirish va kiritishni zarur qiladi.",
+    ke6_h: "Masofaviy Ish",
+    ke6_p: "Bilim iqtisodiyoti jamiyat bo'ylab ishtirokni kengaytiruvchi moslashuvchan, masofaviy, texnologik ish o'rinlarini ta'minlaydi.",
+    badge_project: "Loyiha Ta'limi",
+    proj_title: "Loyiha Metodining Kuchi",
+    proj_quote: "Buning uchun «Yangi O'zbekiston maktab bo'sag'asidan, ta'lim tizimidan boshlanadi» degan g'oya asosida keng ko'lamli islohotlarni amalga oshiramiz. Yoshlar avlodiga bog'chalarda, maktablarda va oliy ta'lim muassasalarida sifatli ta'lim beramiz va barcha kuch-imkoniyatlarimizni safarbar etamiz.",
+    proj_attr: "— Sh. Mirziyoyev, O'zbekiston Respublikasi Prezidenti",
+    proj_benefits_h: "Mustaqil Ta'limdagi Loyiha Metodining Afzalliklari",
+    b1: "Talabalar orasida ijodiy fazilatlar va tashabbusni rivojlantiradi",
+    b2: "Talabalarni mustaqil kasbiy hayotga tayyorlaydi",
+    b3: "Ilmiy adabiyotlarni mustaqil izlash va o'qish ko'nikmalarini rivojlantiradi",
+    b4: "Analitik ma'lumotlarni vizual taqdim etish qobiliyatini shakllantiradi",
+    b5: "Jamoa ishi, muammolarni tahlil qilish va nostandart yechimlarni tarbiyalaydi",
+    b6: "Qaror qabul qilish va vaziyatni baholash ko'nikmalarini mustahkamlaydi",
+    b7: "Talabalarni ish va kasbga tayyorlashning muhim shakli",
+    b8: "Yozma va og'zaki ma'lumot izlash va taqdim etish qobiliyatlarini rivojlantiradi",
+    badge_authors: "Mualliflar va Taqrizchilar",
+    authors_title: "Qo'llanma Ortidagi Olimlar",
+    authors_desc: "Toshkent Davlat Iqtisodiyot Universiteti va unga aloqador muassasalarning yetakchi akademiklari tomonidan tuzilgan va ko'rib chiqilgan.",
+    au1: "Dotsent (v.b.), Iqtisodiy Nazariya Kafedrasi, TDIU",
+    au2: "Katta o'qituvchi, PhD, Iqtisodiy Nazariya Kafedrasi, TDIU",
+    au3: "PhD, Professor, Umumiy Pedagogika Kafedrasi, ChDPU",
+    au4: "Fan doktori (Ds), Professor, Iqtisodiy Nazariya Kafedrasi, TDIU",
+    tag_author: "Muallif",
+    tag_reviewer: "Taqrizchi",
+    footer_logo: "Bilim Iqtisodiyoti · TDIU 2025",
+    footer_sub: "Toshkent Davlat Iqtisodiyot Universiteti · Iqtisodiy Nazariya Kafedrasi",
+    footer_links: 'Manbalar: <a href="http://www.pedagog.uz" target="_blank">pedagog.uz</a> · <a href="http://www.bilimdon.uz" target="_blank">bilimdon.uz</a> · <a href="http://www.edunet.uz" target="_blank">edunet.uz</a> · <a href="http://lex.uz" target="_blank">lex.uz</a>',
+    footer_copy: "© 2025 TDIU · Bilim Iqtisodiyoti Uslubiy Qo'llanmasi",
+    float_btn: "Chop etish / PDF saqlash"
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-uz').classList.toggle('active', lang === 'uz');
+  document.documentElement.lang = lang;
+
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── READING PROGRESS ──
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = (scrollTop / docHeight) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+});
+
+// ── INIT ──
+setLang('en');
+</script>
+</body>
+</html>
